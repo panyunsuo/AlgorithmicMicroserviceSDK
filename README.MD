@@ -1,5 +1,5 @@
 # 安装  
-`pip install git+https://github.com/panyunsuo/algorithm_sdk`
+`pip install git+https://github.com/panyunsuo/AlgorithmicMicroserviceSDK.git`
 
 # 算法模块
 
