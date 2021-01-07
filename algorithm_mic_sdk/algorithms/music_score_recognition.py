@@ -3,13 +3,13 @@ from ..base import AlgoBase
 from ..tools import FileInfo
 
 
-class TraceElimination(AlgoBase):
-    __algo_name__ = 'trace_elimination'
+class MusicScoreRecognition(AlgoBase):
+    __algo_name__ = 'music_score_recognition'
 
     def __init__(self, auth_info: AuthInfo, file: FileInfo, process=None, custom_data=None, **kwargs):
         """
-        手写痕迹消除
-            文档见 https://www.yuque.com/fenfendeyouzhiqingnian/algorithm/zesnvx
+        曲谱识别算法
+            文档见 https://www.yuque.com/fenfendeyouzhiqingnian/algorithm/hgivf3
         @param auth_info:个人权限配置参数
         @param file:文件对象,FileInfo对象
         @param process:缩放参数
