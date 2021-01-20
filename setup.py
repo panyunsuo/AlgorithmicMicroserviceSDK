@@ -15,7 +15,7 @@ with open("README.MD", "r") as fh:
 
 setup(
     name="algorithm-mic-sdk",
-    version="0.1.0",
+    version="1.1.0",
     description="LeQi",
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -25,5 +25,5 @@ setup(
     packages=find_packages(where='.', exclude=(), include=('*',)),
     include_package_data=True,
     platforms="any",
-    install_requires=['requests']
+    install_requires=['requests', 'websocket-client']
 )
