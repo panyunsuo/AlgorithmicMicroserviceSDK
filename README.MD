@@ -11,8 +11,12 @@
 * * `algorithm_mic_sdk.base.AlgoBase` 对`Base`模块的封装,主要是有同步/异步发布算法的功能
 * `algorithm_mic_sdk.algorithms.topic.Topic` 错题本算法
 * `algorithm_mic_sdk.algorithms.trace_elimination.TraceElimination` 手写痕迹消除算法
+* `algorithm_mic_sdk.algorithms.speech_recognition_chinese.SpeechRecognitionChinese` 中文语音识别算法
+* `algorithm_mic_sdk.algorithms.speech_recognition_english.SpeechRecognitionEnglish` 英文语音识别算法
 
-# 使用示例: 
+* `algorithm_mic_sdk.ws.speech_recognition_chinese.SpeechRecognitionChinese` 中文识别算法(socket 版本)
+
+# 使用示例1 (http api): 
 > 错题本算法
 
 ```python
@@ -93,3 +97,35 @@ except error.AbnormalAlgorithmPlatform as e:
 except Exception as e:
     print('未知异常 ', e)
 ```
+
+# 使用示例2 (websocket api):
+> 中文语音识别算法
+
+```python
+from algorithm_mic_sdk.auth import AuthInfo
+from algorithm_mic_sdk.ws.speech_recognition_chinese import SpeechRecognitionChinese
+
+host = 'ws://gateway.algo.leqi.us:8005'  # 算法host地址,协议头为ws
+user_name = 'your name'
+password = 'password'
+filename = '1.pcm' # 音频文件名,这里采用文件的方式来模拟读取流数据,在实际场景中,这个数据可能是由客户端与服务器的socket连接句柄中读取
+audio_format = 'PCM' # 音频格式
+
+
+def callback(ws, data):
+    # 回调函数 入参两个参数,一个是当前连接句柄,一个是识别的结果,这里只是对识别结果做简单输出
+    print(data)
+
+# 创建一个获取流数据的迭代器,在实际场景中,这个数据可能是由客户端与服务器的socket连接句柄中读取
+def send_request_body(stream_filename):
+    data = open(stream_filename, 'rb').read()
+    while data:
+        d, data = data[:320], data[320:]
+        yield d
+# 初始化权限信息类
+auth_info = AuthInfo(host=host, user_name=user_name, password=password)
+# 创建一个识别句柄
+speech_recognition_chinese = SpeechRecognitionChinese(auth_info, audio_format, send_request_body(filename), callback)
+# 运行请求算法,执行此步骤将会发生阻塞
+speech_recognition_chinese.run()
+``` 

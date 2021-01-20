@@ -53,9 +53,9 @@ class WSAlgoBase(WSBase):
     def set_on_open(self, on_open):
         def _on_open(ws):
             ws.send(json.dumps(self.initialization_parameters))
-            on_open(ws)
+            thread.start_new_thread(on_open, (ws,))
 
-        thread.start_new_thread(_on_open, ())
+        self.ws_con.on_open = _on_open
 
     @property
     def initialization_parameters(self):
