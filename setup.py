@@ -10,7 +10,7 @@
 """
 from setuptools import find_packages, setup
 
-with open("README.MD", "r") as fh:
+with open("README.MD", "r", encoding='UTF-8') as fh:
     long_description = fh.read()
 
 setup(
