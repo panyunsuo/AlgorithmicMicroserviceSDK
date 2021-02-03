@@ -13,6 +13,8 @@
 * `algorithm_mic_sdk.algorithms.trace_elimination.TraceElimination` 手写痕迹消除算法
 * `algorithm_mic_sdk.algorithms.speech_recognition_chinese.SpeechRecognitionChinese` 中文语音识别算法
 * `algorithm_mic_sdk.algorithms.speech_recognition_english.SpeechRecognitionEnglish` 英文语音识别算法
+* `algorithm_mic_sdk.algorithms.fluorescent_pen_recognition.FluorescentPenRecognition` 荧光笔识别算法
+* `algorithm_mic_sdk.algorithms.region_marquee.RegionMarquee` 错题本框题算法
 
 * `algorithm_mic_sdk.ws.speech_recognition_chinese.SpeechRecognitionChinese` 中文识别算法(socket 版本)
 
