@@ -1,2 +1,2 @@
 __all__ = ['topic', 'trace_elimination', 'music_score_recognition', 'speech_recognition_english',
-           'speech_recognition_chinese']
+           'speech_recognition_chinese', 'region_marquee', 'fluorescent_pen_recognition']
