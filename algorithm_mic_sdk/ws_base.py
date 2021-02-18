@@ -6,11 +6,14 @@ WebSocket客户端基类
 import _thread as thread
 import json
 from functools import lru_cache
-from urllib.parse import urljoin
+from urllib import parse
 
 import websocket
 
 from algorithm_mic_sdk.auth import AuthInfo
+
+parse.uses_relative.extend(['ws', 'wss'])
+parse.uses_netloc.extend(['ws', 'wss'])
 
 
 class WSBase(object):
@@ -32,7 +35,7 @@ class WSBase(object):
     @property
     @lru_cache(maxsize=1)
     def ws_con(self):
-        return websocket.WebSocketApp(urljoin(self._host, '/ws/algorithm'))
+        return websocket.WebSocketApp(parse.urljoin(self._host, '/ws/algorithm'))
 
     def run(self):
         """
