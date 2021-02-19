@@ -9,6 +9,7 @@
 * `algorithm_mic_sdk.base` 基础类库模块
 * * `algorithm_mic_sdk.base.Base` 主要是对图片算法的处理,可以上传/下载图片, 获取算法结果等,详细使用见模块说明
 * * `algorithm_mic_sdk.base.AlgoBase` 对`Base`模块的封装,主要是有同步/异步发布算法的功能
+
 * `algorithm_mic_sdk.algorithms.topic.Topic` 错题本算法
 * `algorithm_mic_sdk.algorithms.trace_elimination.TraceElimination` 手写痕迹消除算法
 * `algorithm_mic_sdk.algorithms.speech_recognition_chinese.SpeechRecognitionChinese` 中文语音识别算法
@@ -18,6 +19,7 @@
 * `algorithm_mic_sdk.algorithms.photo_to_cartoon.PhotoToCartoon` 人像转卡通头像算法
 
 * `algorithm_mic_sdk.ws.speech_recognition_chinese.SpeechRecognitionChinese` 中文识别算法(socket 版本)
+* `algorithm_mic_sdk.ws.speech_recognition_english.SpeechRecognitionEnglish` 英文识别算法(socket 版本)
 
 # 使用示例1 (http api): 
 > 错题本算法
