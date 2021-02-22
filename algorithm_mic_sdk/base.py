@@ -70,7 +70,7 @@ class Base(object):
         resp = Response.request('GET', self.api_oss_url, params=params)
         return resp.json['preview_url']
 
-    def send_file(self, file_bytes, oss_name=None, cover=False, extranet=None, random_name=None):
+    def send_file(self, file_bytes, oss_name=None, cover=False, extranet=None, random_name=None, prefix=''):
         """
         上传文件到算法的oss中
         :param file_bytes:文件二进制数据
@@ -78,6 +78,7 @@ class Base(object):
         :param cover: 当该文件名在oss上存在时,是否需要重新上传,覆盖该文件
         :param extranet: 是否使用外网传输, 为None时将使用auth_info中的参数
         :param random_name: 是否随机名称
+        :param prefix: 文件名前缀
         :return: 文件在oss上面的文件名
         """
         if extranet is None:
@@ -91,6 +92,7 @@ class Base(object):
                 oss_name = str(uuid.uuid1())
             else:
                 oss_name = get_md5(file_bytes)
+        oss_name = prefix + oss_name
         put_url, exist_file, oss_name = self.get_put_url(oss_name, extranet, headers=None, timeout=600)
 
         if not exist_file or cover:

@@ -21,6 +21,7 @@ class FileInfo(object):
         若已有在文件的二进制数据,则可使用 for_file_bytes 方法构建对象
         若有可通过指定方法获取文件二进制数据的,则可使用 for_function 方法构建对象
         若已有在文件的可访问url,则可使用 for_url 方法构建对象
+    类初始化后,在请求完算法后,可以通过name属性拿到文件在oss上存储的名称
     """
 
     def __init__(self, func):
@@ -29,13 +30,15 @@ class FileInfo(object):
         @param func:可执行方法,接收 algorithm_mic_sdk.base.AlgoBase 类实例,需要返回文件的二进制数据
         """
         self.func = func
+        self.name = None
 
     @lru_cache(maxsize=1)
     def get_oss_name(self, algo_base):
         """
         获取OSS文件名
         """
-        return self.func(algo_base)
+        self.name = self.func(algo_base)
+        return self.name
 
     @classmethod
     def for_oss_name(cls, oss_name):
@@ -45,11 +48,11 @@ class FileInfo(object):
         return cls(lambda algo_base: oss_name)
 
     @classmethod
-    def for_file_bytes(cls, file_bytes):
+    def for_file_bytes(cls, file_bytes, prefix=''):
         """
         文件来源于二进制数据
         """
-        return cls(lambda algo_base: algo_base.send_file(file_bytes))
+        return cls(lambda algo_base: algo_base.send_file(file_bytes, prefix=prefix))
 
     @classmethod
     def for_function(cls, function, oss_name):
