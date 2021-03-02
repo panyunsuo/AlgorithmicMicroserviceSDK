@@ -27,7 +27,7 @@ class SpeechRecognitionChinese(WSAlgoBase):
 
     def __init__(self, auth_info: AuthInfo, audio_format='PCM', data_stream_iterator=None,
                  recognition_result_callback_func=None, minimum_segment_frame=None, minimum_valid_frame=None,
-                 maximum_audio_segment=None, **kwargs):
+                 maximum_audio_segment=None, lm_weight=None, **kwargs):
         """
         语音识别算法(中文)
             文档见 https://www.yuque.com/fenfendeyouzhiqingnian/algorithm/kbmfrx
@@ -39,6 +39,7 @@ class SpeechRecognitionChinese(WSAlgoBase):
         @param minimum_valid_frame:最小的可识别的有效帧数量
         @param minimum_segment_frame:用来分段的最小的静音帧数量
         @param maximum_audio_segment:最大分段长度,大于此长度的段,将自动进行分段操作
+        @param lm_weight:语言模型的权重
         @param kwargs:
         """
 
@@ -47,6 +48,7 @@ class SpeechRecognitionChinese(WSAlgoBase):
         self.request['minimum_segment_frame'] = minimum_segment_frame
         self.request['minimum_valid_frame'] = minimum_valid_frame
         self.request['maximum_audio_segment'] = maximum_audio_segment
+        self.request['lm_weight'] = lm_weight
         self.request['state'] = 'ready'
         self.request.update(kwargs)
         self.set_on_message(recognition_result_callback_func)
