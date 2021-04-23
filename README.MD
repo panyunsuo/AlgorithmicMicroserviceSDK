@@ -17,9 +17,12 @@
 * `algorithm_mic_sdk.algorithms.fluorescent_pen_recognition.FluorescentPenRecognition` 荧光笔识别算法
 * `algorithm_mic_sdk.algorithms.region_marquee.RegionMarquee` 错题本框题算法
 * `algorithm_mic_sdk.algorithms.photo_to_cartoon.PhotoToCartoon` 人像转卡通头像算法
+* `algorithm_mic_sdk.algorithms.skin_recognition.SkinRecognition` 皮肤病检测算法
+* `algorithm_mic_sdk.algorithms.watermark_removal.WatermarkRemoval` 去水印算法
 
 * `algorithm_mic_sdk.ws.speech_recognition_chinese.SpeechRecognitionChinese` 中文识别算法(socket 版本)
 * `algorithm_mic_sdk.ws.speech_recognition_english.SpeechRecognitionEnglish` 英文识别算法(socket 版本)
+
 
 # 使用示例1 (http api): 
 > 错题本算法
