@@ -19,6 +19,7 @@
 * `algorithm_mic_sdk.algorithms.photo_to_cartoon.PhotoToCartoon` 人像转卡通头像算法
 * `algorithm_mic_sdk.algorithms.skin_recognition.SkinRecognition` 皮肤病检测算法
 * `algorithm_mic_sdk.algorithms.watermark_removal.WatermarkRemoval` 去水印算法
+* `algorithm_mic_sdk.algorithms.ocr_rec.OCRRec` 图片文本检测算法
 
 * `algorithm_mic_sdk.ws.speech_recognition_chinese.SpeechRecognitionChinese` 中文识别算法(socket 版本)
 * `algorithm_mic_sdk.ws.speech_recognition_english.SpeechRecognitionEnglish` 英文识别算法(socket 版本)
