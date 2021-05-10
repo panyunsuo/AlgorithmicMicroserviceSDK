@@ -6,6 +6,7 @@
 ------------
 2020/4/21 10:47
 """
+import logging
 
 
 class AuthInfo(object):
@@ -26,3 +27,11 @@ class AuthInfo(object):
         self.password = password
         self.gateway_cache = gateway_cache
         self.random_name = random_name
+        if self.extranet:
+            logging.warning('AuthInfo 在生产环境下 extranet=True 会加大带宽损耗及降低运行速度,请慎用')
+
+        if not self.gateway_cache:
+            logging.warning('AuthInfo 除非你有特殊需求,否则请保持 gateway_cache=True 这对一些情况下的请求具有明显加速效果')
+
+        if random_name:
+            logging.warning('AuthInfo 除非你有特殊需求 否则请保持 random_name=False 这会可以避免文件的重复上传')
