@@ -16,7 +16,7 @@ def build_data_stream_source(data_stream_iterator):
             data = {
                 'state': 'running',
                 'part': part,
-                'send_time': time.time()
+                'server_send_time': time.time()
             }
             ws.send(json.dumps(data))
         ws.send(json.dumps({'state': 'end'}))
