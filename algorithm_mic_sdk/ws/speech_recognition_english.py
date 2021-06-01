@@ -1,5 +1,6 @@
 import base64
 import json
+import time
 
 from ..auth import AuthInfo
 from ..ws_base import WSAlgoBase
@@ -14,7 +15,8 @@ def build_data_stream_source(data_stream_iterator):
                 part = stream
             data = {
                 'state': 'running',
-                'part': part
+                'part': part,
+                'send_time': time.time()
             }
             ws.send(json.dumps(data))
         ws.send(json.dumps({'state': 'end'}))
@@ -27,7 +29,7 @@ class SpeechRecognitionEnglish(WSAlgoBase):
 
     def __init__(self, auth_info: AuthInfo, text, audio_format='PCM', data_stream_iterator=None,
                  recognition_result_callback_func=None, minimum_segment_frame=None, minimum_valid_frame=None,
-                 maximum_audio_segment=None, **kwargs):
+                 maximum_audio_segment=None, log_record=True, **kwargs):
         """
         语音识别算法(英文)
             文档见 https://www.yuque.com/fenfendeyouzhiqingnian/algorithm/wnucwk
@@ -39,6 +41,7 @@ class SpeechRecognitionEnglish(WSAlgoBase):
                 其中,ws为当前连接的WebSocket句柄,data为服务器返回的结果
         @param minimum_valid_frame:最小的可识别的有效帧数量
         @param minimum_segment_frame:用来分段的最小的静音帧数量
+        @param log_record:是否需要日志记录
         @param maximum_audio_segment:最大分段长度,大于此长度的段,将自动进行分段操作
         @param kwargs:
         """
@@ -50,6 +53,7 @@ class SpeechRecognitionEnglish(WSAlgoBase):
         self.request['minimum_valid_frame'] = minimum_valid_frame
         self.request['maximum_audio_segment'] = maximum_audio_segment
         self.request['state'] = 'ready'
+        self.request['log_record'] = log_record
         self.request.update(kwargs)
         self.set_on_message(recognition_result_callback_func)
         self.set_on_open(build_data_stream_source(data_stream_iterator))
