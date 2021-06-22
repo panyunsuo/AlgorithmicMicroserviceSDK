@@ -15,7 +15,7 @@ with open("README.MD", "r", encoding='UTF-8') as fh:
 
 setup(
     name="algorithm-mic-sdk",
-    version="1.7.2",
+    version="1.7.3",
     description="LeQi",
     long_description=long_description,
     long_description_content_type="text/markdown",
