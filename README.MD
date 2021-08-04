@@ -22,6 +22,7 @@
 * `algorithm_mic_sdk.algorithms.ocr_rec.OCRRec` 图片文本检测算法
 * `algorithm_mic_sdk.algorithms.paper_rotation.PaperRotation` 错题本图像旋转算法
 * `algorithm_mic_sdk.algorithms.speech_synthesis.SpeechSynthesis` 语音合成算法
+* `algorithm_mic_sdk.algorithms.topic_loc.TopicLoc` 错题本题干检测定位算法
 
 * `algorithm_mic_sdk.ws.speech_recognition_chinese.SpeechRecognitionChinese` 中文识别算法(socket 版本)
 * `algorithm_mic_sdk.ws.speech_recognition_english.SpeechRecognitionEnglish` 英文识别算法(socket 版本)
