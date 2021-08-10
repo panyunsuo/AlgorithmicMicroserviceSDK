@@ -153,12 +153,22 @@ class AlgoBase(Base):
         self.gateway_cache = auth_info.gateway_cache
         self.request = {}
 
+    def init_request(self):
+        """
+        初始化request数据,对于一些特殊类型的数据,可以在这里预处理
+        @return:
+        """
+        for key, value in self.request.items():
+            if isinstance(value, FileInfo):
+                self.request[key] = value.get_oss_name(self)
+
     @property
     def json(self):
         """
         生成算法请求的json参数
         :return: dict
         """
+        self.init_request()
         return {'user_name': self._user_name,
                 'password': self._password,
                 'target': self.algo_name,
