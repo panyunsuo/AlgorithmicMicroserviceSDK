@@ -6,7 +6,8 @@ from ..tools import FileInfo
 class PhotoToCartoon(AlgoBase):
     __algo_name__ = 'photo_to_cartoon'
 
-    def __init__(self, auth_info: AuthInfo, file: FileInfo, styles, process=None, need_cache=True, custom_data=None,
+    def __init__(self, auth_info: AuthInfo, file: FileInfo, styles=None, process=None, need_cache=True,
+                 custom_data=None,
                  **kwargs):
         """
         人像转卡通算法
@@ -24,5 +25,6 @@ class PhotoToCartoon(AlgoBase):
         self.request['process'] = process
         self.request['custom_data'] = custom_data
         self.request['need_cache'] = need_cache
-        self.request['styles'] = styles
+        if styles:
+            self.request['styles'] = styles
         self.request.update(kwargs)
