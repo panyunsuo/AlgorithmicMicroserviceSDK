@@ -1,6 +1,6 @@
 """
 安装
-pip install git+https://github.com/panyunsuo/algorithm_sdk
+pip install leqi-algorithm-mic-sdk
 
 算法模块
 algorithm_mic_sdk.error 异常模块

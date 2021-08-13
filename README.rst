@@ -1,5 +1,5 @@
 # 安装  
-`pip install git+https://github.com/panyunsuo/AlgorithmicMicroserviceSDK.git`
+`pip install leqi-algorithm-mic-sdk`
 
 # 算法模块
 
@@ -28,7 +28,8 @@
 * `algorithm_mic_sdk.ws.speech_recognition_english.SpeechRecognitionEnglish` 英文识别算法(socket 版本)
 
 
-# 使用示例1 (http api): 
+# 使用示例1 (http api):
+
 > 错题本算法
 
 ```python
