@@ -12,7 +12,7 @@ from setuptools import find_packages, setup
 
 PACKAGE = 'algorithm_mic_sdk'
 
-with open("README.MD", "r", encoding='UTF-8') as fh:
+with open("README.rst", "r", encoding='UTF-8') as fh:
     long_description = fh.read()
 
 VERSION = __import__(PACKAGE).__version__
