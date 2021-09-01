@@ -23,6 +23,7 @@
 * `algorithm_mic_sdk.algorithms.paper_rotation.PaperRotation` 错题本图像旋转算法
 * `algorithm_mic_sdk.algorithms.speech_synthesis.SpeechSynthesis` 语音合成算法
 * `algorithm_mic_sdk.algorithms.topic_loc.TopicLoc` 错题本题干检测定位算法
+* `algorithm_mic_sdk.algorithms.teacher_qualification_check.TeacherQualificationCheck` 教师资格证编号识别算法
 
 * `algorithm_mic_sdk.ws.speech_recognition_chinese.SpeechRecognitionChinese` 中文识别算法(socket 版本)
 * `algorithm_mic_sdk.ws.speech_recognition_english.SpeechRecognitionEnglish` 英文识别算法(socket 版本)
@@ -32,7 +33,9 @@
 
 > 错题本算法
 
+
 ```python
+
 import time
 
 from algorithm_mic_sdk import error
@@ -109,6 +112,7 @@ except error.AbnormalAlgorithmPlatform as e:
     print('算法平台异常 状态码:', e.code, '状态提示', e.error)
 except Exception as e:
     print('未知异常 ', e)
+
 ```
 
 # 使用示例2 (websocket api):
