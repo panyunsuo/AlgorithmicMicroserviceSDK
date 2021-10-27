@@ -68,3 +68,4 @@ target/
 *.png
 *.rar
 *.zip
+test/
