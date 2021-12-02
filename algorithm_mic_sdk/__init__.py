@@ -14,4 +14,4 @@ algorithm_mic_sdk.base.AlgoBase 对Base模块的封装,主要是有同步/异步
 algorithm_mic_sdk.algorithms.topic.Topic 错题本算法
 algorithm_mic_sdk.algorithms.trace_elimination.TraceElimination 手写痕迹消除算法
 """
-__version__ = '1.12.0'
+__version__ = '1.13.0'

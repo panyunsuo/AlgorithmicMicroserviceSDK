@@ -158,9 +158,19 @@ class AlgoBase(Base):
         初始化request数据,对于一些特殊类型的数据,可以在这里预处理
         @return:
         """
-        for key, value in self.request.items():
-            if isinstance(value, FileInfo):
-                self.request[key] = value.get_oss_name(self)
+        self.request = self.file_info_params(self.request)
+
+    def file_info_params(self, value):
+        if isinstance(value, FileInfo):
+            value = value.get_oss_name(self)
+        elif isinstance(value, list):
+            for i, param in enumerate(value):
+                value[i] = self.file_info_params(param)
+        elif isinstance(value, dict):
+            for k, v in value.items():
+                value[k] = self.file_info_params(v)
+
+        return value
 
     @property
     def json(self):
