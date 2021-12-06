@@ -131,7 +131,7 @@ class Base(object):
         return resp.content
 
     @lru_cache(maxsize=100)
-    def get_file_url(self, oss_name, extranet=False, watermark=None, timeout=3600):
+    def get_file_url(self, oss_name, extranet=None, watermark=None, timeout=3600):
         """
         生成文件的预览地址
         :param oss_name: 文件在阿里云oss上的名称
@@ -161,7 +161,7 @@ class Base(object):
         return resp.content
 
     @lru_cache(maxsize=100)
-    def get_classic_file_url(self, oss_name, extranet=False, watermark=None, timeout=3600):
+    def get_classic_file_url(self, oss_name, extranet=None, watermark=None, timeout=3600):
         """
         生成经典算法下文件的预览地址
         :param oss_name: 文件在阿里云oss上的名称
