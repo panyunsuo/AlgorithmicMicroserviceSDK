@@ -7,7 +7,7 @@ class IDPhotoDeepBeautyToB(AlgoBase):
     __algo_name__ = 'idphoto_deep_beauty_to_b'
 
     def __init__(self, auth_info: AuthInfo, oss_file: FileInfo, process=None, spec_info: dict = None,
-                 deep_beauty_template: str = None,  **kwargs):
+                 deep_beauty_template: str = None, **kwargs):
         """
         证件照B端精修美颜
             文档地址: https://www.yuque.com/fenfendeyouzhiqingnian/algorithm/rzpvyr
@@ -24,3 +24,11 @@ class IDPhotoDeepBeautyToB(AlgoBase):
         self.request['spec_info'] = spec_info
         self.request['deep_beauty_template'] = deep_beauty_template
         self.request.update(kwargs)
+
+
+class IDPhotoDeepBeautyToBClassic(IDPhotoDeepBeautyToB):
+    __algo_name__ = 'idphoto_deep_beauty_to_b'
+    _has_classic = True
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

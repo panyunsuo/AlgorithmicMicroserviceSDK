@@ -5,7 +5,7 @@ from functools import lru_cache
 from urllib.parse import urljoin
 
 from . import error
-from .auth import AuthInfo
+from .auth import AuthInfo, ClassicAuthInfo
 from .error import TaskTimeoutNotCompleted
 from .response import Response
 from .tools import get_md5, FileInfo
@@ -15,6 +15,7 @@ class Base(object):
     """
         基础库,封装了一些基础的函数,例如图片上传 下载 生成预览url 根据任务ID获取结果等,可以单独初始化此库来使用上述功能
         """
+    _has_classic = False  # 是否为经典算法
 
     def __init__(self, auth_info: AuthInfo):
         self._host = auth_info.host
@@ -36,12 +37,24 @@ class Base(object):
 
     @property
     @lru_cache(maxsize=1)
+    def api_classic_oss_url(self):
+        """
+        经典网关平台上传文件的url
+        :return:url
+        """
+        api = 'api/oss/url/classic'
+        return urljoin(self._host, api)
+
+    @property
+    @lru_cache(maxsize=1)
     def api_async_url(self):
         """
         网关平台异步请求算法的url
         :return:url
         """
         api = 'api/algorithm'
+        if self._has_classic:
+            api = 'api/classic/algorithm'
         return urljoin(self._host, api)
 
     @property
@@ -52,6 +65,8 @@ class Base(object):
         :return:url
         """
         api = 'api/algorithm/task/{task_id}'
+        if self._has_classic:
+            api = 'api/classic/algorithm/task/{task_id}'
         return urljoin(self._host, api)
 
     @lru_cache(maxsize=100)
@@ -65,9 +80,9 @@ class Base(object):
         return resp.json['put_url'], resp.json.get('exist_file'), resp.json['oss_name']
 
     @lru_cache(maxsize=100)
-    def _get_file_url(self, oss_name, extranet, watermark, timeout):
+    def _get_file_url(self, oss_name, extranet, watermark, timeout, api_oss_url):
         params = {'filename': oss_name, 'extranet': extranet, 'watermark': watermark, 'timeout': timeout}
-        resp = Response.request('GET', self.api_oss_url, params=params)
+        resp = Response.request('GET', api_oss_url, params=params)
         return resp.json['preview_url']
 
     def send_file(self, file_bytes, oss_name=None, cover=False, extranet=None, random_name=None, prefix=''):
@@ -111,7 +126,7 @@ class Base(object):
         """
         if extranet is None:
             extranet = self._extranet
-        get_url = self._get_file_url(oss_name, extranet, watermark=watermark, timeout=600)
+        get_url = self._get_file_url(oss_name, extranet, watermark=watermark, timeout=600, api_oss_url=self.api_oss_url)
         resp = Response.request('GET', get_url, timeout=10)
         return resp.content
 
@@ -127,7 +142,37 @@ class Base(object):
         """
         if extranet is None:
             extranet = self._extranet
-        get_url = self._get_file_url(oss_name, extranet, watermark, timeout)
+        get_url = self._get_file_url(oss_name, extranet, watermark, timeout, api_oss_url=self.api_oss_url)
+        return get_url
+
+    def get_classic_file(self, oss_name=None, extranet=None, watermark=None):
+        """
+        下载经典算法下文件数据
+        :param oss_name:文件在阿里云oss上的名称
+        :param extranet: 是否使用外网传输, 为None时将使用auth_info中的参数
+        :param watermark: 是否需要添加水印
+        :return: 图片二进制数据
+        """
+        if extranet is None:
+            extranet = self._extranet
+        get_url = self._get_file_url(oss_name, extranet, watermark=watermark, timeout=600,
+                                     api_oss_url=self.api_classic_oss_url)
+        resp = Response.request('GET', get_url, timeout=10)
+        return resp.content
+
+    @lru_cache(maxsize=100)
+    def get_classic_file_url(self, oss_name, extranet=False, watermark=None, timeout=3600):
+        """
+        生成经典算法下文件的预览地址
+        :param oss_name: 文件在阿里云oss上的名称
+        :param extranet: 是否使用内网传输, 为None时将使用auth_info中的参数
+        :param watermark: 图片水印
+        :param timeout: 预览鱼片过期时间
+        :return: url
+        """
+        if extranet is None:
+            extranet = self._extranet
+        get_url = self._get_file_url(oss_name, extranet, watermark, timeout, api_oss_url=self.api_classic_oss_url)
         return get_url
 
     def get_results(self, task_id):
@@ -162,7 +207,10 @@ class AlgoBase(Base):
 
     def file_info_params(self, value):
         if isinstance(value, FileInfo):
-            value = value.get_oss_name(self)
+            if self._has_classic:
+                value = value.get_oss_url(self)
+            else:
+                value = value.get_oss_name(self)
         elif isinstance(value, list):
             for i, param in enumerate(value):
                 value[i] = self.file_info_params(param)
@@ -179,11 +227,15 @@ class AlgoBase(Base):
         :return: dict
         """
         self.init_request()
-        return {'user_name': self._user_name,
+        data = {'user_name': self._user_name,
                 'password': self._password,
                 'target': self.algo_name,
                 'gateway_cache': self.gateway_cache,
                 'request': self.request}
+        if isinstance(self._auth_info, ClassicAuthInfo):
+            data['classic_user_name'] = self._auth_info.classic_user_name
+            data['classic_password'] = self._auth_info.classic_password
+        return data
 
     def synchronous_request(self, timeout=30, interval=0.5):
         """

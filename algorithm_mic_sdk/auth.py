@@ -35,3 +35,17 @@ class AuthInfo(object):
 
         if random_name:
             logging.warning('AuthInfo 除非你有特殊需求 否则请保持 random_name=False 这会可以避免文件的重复上传')
+
+
+class ClassicAuthInfo(AuthInfo):
+    def __init__(self, classic_user_name, classic_password, *args, **kwargs):
+        """
+        经典算法授权信息
+        @param classic_user_name:
+        @param classic_password:
+        @param args:
+        @param kwargs:
+        """
+        super().__init__(*args, **kwargs)
+        self.classic_user_name = classic_user_name
+        self.classic_password = classic_password

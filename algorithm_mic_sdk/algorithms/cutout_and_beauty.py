@@ -54,3 +54,11 @@ class CutoutAndBeauty(AlgoBase):
         self.request["deep_beauty"] = deep_beauty
         self.request["deep_beauty_template"] = deep_beauty_template
         self.request.update(kwargs)
+
+
+class CutoutAndBeautyClassic(CutoutAndBeauty):
+    __algo_name__ = 'cutout_and_beauty_coordination'
+    _has_classic = True
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

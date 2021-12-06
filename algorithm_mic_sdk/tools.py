@@ -40,6 +40,20 @@ class FileInfo(object):
         self.name = self.func(algo_base)
         return self.name
 
+    @lru_cache(maxsize=1)
+    def get_oss_url(self, algo_base):
+        """
+        获取OSS文件的url
+        @param algo_base:
+        @return:
+        """
+        name = self.get_oss_name(algo_base)
+        if name.startswith('http'):
+            url = name
+        else:
+            url = algo_base.get_file_url(name, extranet=False)
+        return url
+
     @classmethod
     def for_oss_name(cls, oss_name):
         """
