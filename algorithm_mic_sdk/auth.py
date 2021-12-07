@@ -38,14 +38,14 @@ class AuthInfo(object):
 
 
 class ClassicAuthInfo(AuthInfo):
-    def __init__(self, classic_user_name, classic_password, host, user_name=None, password=None, **kwargs):
+    def __init__(self, host, user_name, password, classic_user_name, classic_password, **kwargs):
         """
         经典算法授权信息
         @param classic_user_name:经典算法账号名
         @param classic_password:经典算法密码
         @param host:微服务算法的主机地址,例如:http://gateway.algo.leqi.us
-        @param user_name:微服务算法中的账号名,可省,当需要进行涉及如GPU阶段加速时,此字段必填
-        @param password:微服务算法中的密码,可省,当需要进行涉及如GPU阶段加速时,此字段必填
+        @param user_name:微服务算法中的账号名
+        @param password:微服务算法中的密码
         @param kwargs:
         """
         super().__init__(host, user_name=user_name, password=password, **kwargs)
