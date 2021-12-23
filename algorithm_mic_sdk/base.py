@@ -239,16 +239,33 @@ class AlgoBase(Base):
             data['classic_password'] = self._auth_info.classic_password
         return data
 
+    def _interval_sleep(self, interval):
+        if isinstance(interval, (int, float)):
+            _interval = [interval]
+        elif not isinstance(interval, (list, tuple)):
+            raise error.UnknownType('interval 参数类型只能为 int float list或tuple')
+        else:
+            _interval = interval
+        i = 0
+        interval_length = len(_interval)
+        while True:
+            if i < interval_length:
+                yield _interval[i]
+            else:
+                yield _interval[-1]
+            i += 1
+
     def synchronous_request(self, timeout=30, interval=0.5):
         """
         同步请求算法(实质上是多次异步请求)
         :param timeout:请求超时时间
-        :param interval: 每次轮询的间隔
+        :param interval: 每次轮询的间隔,可以为数值,也可以为list[int],即每次轮询的间隔
         :return:algorithm.response.Response
         """
         stop_time = time.time() + timeout
         # 发布任务
         task_id = self.asynchronous_request().task_id
+        interval_sleep = self._interval_sleep(interval)
         while time.time() < stop_time:
             try:
                 response = self.get_results(task_id)
@@ -259,8 +276,8 @@ class AlgoBase(Base):
                 if response.gateway_code == 1000:
                     return response
                 elif response.gateway_code != 1002:
-                    raise error.AlgorithmProcessingFailed(response.gateway_code, response.gateway_error)
-            time.sleep(interval)
+                    raise error.AlgorithmProcessingFailed(task_id, response.gateway_code, response.gateway_error)
+            time.sleep(next(interval_sleep))
 
         raise TaskTimeoutNotCompleted(task_id, timeout, interval)
 
