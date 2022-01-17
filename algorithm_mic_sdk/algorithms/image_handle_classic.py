@@ -23,7 +23,7 @@ class ImageHandleClassic(AlgoBase):
         @param kwargs:
         """
         super().__init__(auth_info)
-        self.request['file'] = oss_file
+        self.request['oss_file'] = oss_file
         self.request['process'] = process
         self.request['person_info'] = person_info
         self.request['crop_params'] = crop_params
