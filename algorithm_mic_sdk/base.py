@@ -139,7 +139,7 @@ class Base(object):
         :param oss_name: 文件在阿里云oss上的名称
         :param extranet: 是否使用内网传输, 为None时将使用auth_info中的参数
         :param watermark: 图片水印
-        :param timeout: 预览鱼片过期时间
+        :param timeout: 预览图片过期时间
         :return: url
         """
         if extranet is None:
@@ -169,7 +169,7 @@ class Base(object):
         :param oss_name: 文件在阿里云oss上的名称
         :param extranet: 是否使用内网传输, 为None时将使用auth_info中的参数
         :param watermark: 图片水印
-        :param timeout: 预览鱼片过期时间
+        :param timeout: 预览图片过期时间
         :return: url
         """
         if extranet is None:
