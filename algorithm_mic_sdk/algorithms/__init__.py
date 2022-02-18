@@ -4,4 +4,4 @@ __all__ = ['topic', 'trace_elimination', 'music_score_recognition', 'speech_reco
            'teacher_qualification_check', 'object_detection', 'image_search', 'cutout_and_beauty',
            'idphoto_deep_beauty_to_b', 'gpu_accelerate', 'original_background_crop', 'title_detector', 'skin_quality',
            'wedding_photo_classic', 'image_handle_classic', 'face_info_classic', 'doc_correct', 'watermark_removal_video',
-           'silent_reading_context_detect']
+           'silent_reading_context_detect', 'check_photo_classic']
