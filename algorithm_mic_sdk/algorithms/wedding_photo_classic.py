@@ -32,4 +32,3 @@ class WeddingPhotoClassic(AlgoBase):
         self.request['need_beauty_buffer'] = need_beauty_buffer
         self.request['use_cache'] = use_cache
         self.request.update(kwargs)
-

@@ -6,7 +6,8 @@ from ..tools import FileInfo
 class SkinQuality(AlgoBase):
     __algo_name__ = 'skin_quality'
 
-    def __init__(self, auth_info: AuthInfo, oss_file: FileInfo, faces: list, custom_data=None, interface_version='V1', **kwargs):
+    def __init__(self, auth_info: AuthInfo, oss_file: FileInfo, faces: list, custom_data=None, interface_version='V1',
+                 **kwargs):
         """
         错题本算法
             文档见 https://www.yuque.com/fenfendeyouzhiqingnian/algorithm/vc8dlg
