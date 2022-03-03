@@ -24,13 +24,14 @@ class FileInfo(object):
     类初始化后,在请求完算法后,可以通过name属性拿到文件在oss上存储的名称
     """
 
-    def __init__(self, func):
+    def __init__(self, func, is_classic_oss_name=False):
         """
         文件对象
         @param func:可执行方法,接收 algorithm_mic_sdk.base.AlgoBase 类实例,需要返回文件的二进制数据
         """
         self.func = func
         self.name = None
+        self.is_classic_oss_name = is_classic_oss_name
 
     @lru_cache(maxsize=1)
     def get_oss_name(self, algo_base):
@@ -55,11 +56,14 @@ class FileInfo(object):
         return url
 
     @classmethod
-    def for_oss_name(cls, oss_name):
+    def for_oss_name(cls, oss_name, is_classic_oss_name=False):
         """
         文件来源于已有的OSS文件名
+        @param oss_name: 文件名
+        @param is_classic_oss_name:是否是经典算法图片容器中的文件名
+        @return:
         """
-        return cls(lambda algo_base: oss_name)
+        return cls(lambda algo_base: oss_name, is_classic_oss_name)
 
     @classmethod
     def for_file_bytes(cls, file_bytes, prefix=''):

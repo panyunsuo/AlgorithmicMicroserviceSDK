@@ -209,7 +209,7 @@ class AlgoBase(Base):
 
     def file_info_params(self, value):
         if isinstance(value, FileInfo):
-            if self._has_classic:
+            if self._has_classic and not value.is_classic_oss_name:
                 value = value.get_oss_url(self)
             else:
                 value = value.get_oss_name(self)
