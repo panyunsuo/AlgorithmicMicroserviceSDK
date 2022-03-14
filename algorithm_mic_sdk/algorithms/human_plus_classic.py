@@ -7,7 +7,7 @@ class HumanPlusClassic(AlgoBase):
     __algo_name__ = 'human_plus'
     _has_classic = True
 
-    def __init__(self, auth_info: AuthInfo, oss_file: FileInfo, process=None, cut_params=None, need_to_use_cache=False,
+    def __init__(self, auth_info: AuthInfo, oss_file: FileInfo, process=None, cut_params=None, need_to_use_cache=True,
                  just_one_face=False, need_feature_info=False, need_all_face=False, **kwargs):
         """
         半身照/全身照算法
