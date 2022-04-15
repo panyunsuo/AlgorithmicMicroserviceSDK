@@ -6,4 +6,4 @@ __all__ = ['topic', 'trace_elimination', 'music_score_recognition', 'speech_reco
            'wedding_photo_classic', 'image_handle_classic', 'face_info_classic', 'doc_correct',
            'watermark_removal_video', 'silent_reading_context_detect', 'check_photo_classic',
            'double_picture_stitching', 'single_human_editor', 'human_plus_classic', 'extract_face_feature',
-           'match_face_feature']
+           'match_face_feature', 'image_resize_classic']
