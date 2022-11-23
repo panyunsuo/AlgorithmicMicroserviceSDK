@@ -4,7 +4,7 @@ from ..tools import FileInfo
 
 
 class FacialBeauty(AlgoBase):
-    __algo_name__ = 'facial_beauty'
+    __algo_name__ = 'facial_beauty_v2'
 
     def __init__(self, auth_info: AuthInfo, file: FileInfo, process=None, custom_data=None, **kwargs):
         """
