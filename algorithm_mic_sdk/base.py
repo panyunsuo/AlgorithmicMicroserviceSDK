@@ -5,7 +5,7 @@ from functools import lru_cache
 from urllib.parse import urljoin
 
 from . import error
-from .auth import AuthInfo, ClassicAuthInfo
+from .auth import AuthInfo
 from .error import TaskTimeoutNotCompleted
 from .response import Response
 from .tools import get_md5, FileInfo
@@ -233,7 +233,7 @@ class AlgoBase(Base):
                 'target': self.algo_name,
                 'gateway_cache': self.gateway_cache,
                 'request': self.request}
-        if isinstance(self._auth_info, ClassicAuthInfo):
+        if self._has_classic:
             data['classic_user_name'] = self._auth_info.classic_user_name
             data['classic_password'] = self._auth_info.classic_password
         return data
