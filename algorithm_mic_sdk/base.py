@@ -24,8 +24,7 @@ class Base(object):
         self._password = auth_info.password
         self._random_name = auth_info.random_name
         self._auth_info = auth_info
-        if isinstance(auth_info, ClassicAuthInfo):
-            self._has_classic = True
+        self._has_classic = hasattr(auth_info, '_has_classic') and getattr(auth_info, '_has_classic')
 
     @property
     @lru_cache(maxsize=1)

@@ -48,6 +48,7 @@ class ClassicAuthInfo(AuthInfo):
         @param password:微服务算法中的密码
         @param kwargs:
         """
+        _has_classic = True
         super().__init__(host, user_name=user_name, password=password, **kwargs)
         self.classic_user_name = classic_user_name
         self.classic_password = classic_password
